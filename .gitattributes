@@ -1,0 +1,15 @@
+# Standardkonvertierung für Quellcode
+* text=auto
+
+# Stylesheets
+*.css text
+*.scss text
+
+# Markdown
+*.md text
+
+# Binärformate
+*.png binary
+*.jpg binary
+*.gif binary
+*.zip binary
