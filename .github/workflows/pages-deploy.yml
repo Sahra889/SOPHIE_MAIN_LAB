@@ -18,10 +18,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout Repository
+      - name: 🧾 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: ⚙️ Setup GitHub Pages
+      - name: 🧩 Setup GitHub Pages
         uses: actions/configure-pages@v3
 
       - name: 📦 Upload GitHub Pages Artifact
