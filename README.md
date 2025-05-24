@@ -1,8 +1,7 @@
-# 🌸 SOPHIE_MAIN_LAB
-
 # 🧠 SOPHIE_MAIN_LAB
+Willkommen im zentralen KI-Infrastrukturprojekt 
 
-Willkommen im zentralen KI-Infrastrukturprojekt **`SOPHIE_MAIN_LAB`**  
+**`SOPHIE_MAIN_LAB`**  
 Dieses System bietet dir eine vollständig modulare Umgebung zur Verwaltung, Erweiterung und Verbindung multipler KI-Instanzen in lokalen oder geteilten Umgebungen.
 
 [![Deploy to GitHub Pages](https://img.shields.io/badge/🔁%20LiveUI-SOPHIE_MAIN_LAB-blue?style=flat-square)](https://sahra889.github.io/SOPHIE_MAIN_LAB/)
@@ -25,7 +24,7 @@ MAIN_LAB/
 ├── TRAINING/
 ├── TOOLCHAIN/
 ├── SHARED/
-├── DOCS/
+├── docs/
 └── START/
 
 
@@ -49,7 +48,7 @@ MAIN_LAB/
 ## 📘 Anleitung
 
 Alle Setup- und Autostart-Skripte findest du unter:  
-`/START/` und `/DOCS/manifest_main_...`
+`/START/` und `/docs/manifest_main_...`
 
 ---
 
