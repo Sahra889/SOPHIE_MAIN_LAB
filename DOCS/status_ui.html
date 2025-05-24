@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>SOPHIE Systemstatus</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      margin: 0;
+      padding: 40px;
+    }
+    h1 {
+      color: #79c0ff;
+    }
+    .status-box {
+      background: #161b22;
+      border-left: 5px solid #238636;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+    .label {
+      font-weight: bold;
+      color: #58a6ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔄 SOPHIE Systemstatus</h1>
+
+  <div class="status-box">
+    <div><span class="label">📂 Aktiver Speicherstand:</span> memory.json</div>
+    <div><span class="label">🕒 Letzter Export:</span> memory_export.json</div>
+    <div><span class="label">🧠 Antworten gesamt:</span> <code><span id="responsesGiven">...</span></code></div>
+    <div><span class="label">📄 Letztes Thema:</span> <code><span id="lastHeard">...</span></code></div>
+  </div>
+
+  <script>
+    fetch('memory.json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('responsesGiven').innerText = data.responsesGiven || "0";
+        document.getElementById('lastHeard').innerText = data.lastHeard || "–";
+      })
+      .catch(err => {
+        document.getElementById('responsesGiven').innerText = "Fehler";
+        document.getElementById('lastHeard').innerText = "Fehler";
+      });
+  </script>
+</body>
+</html>
