@@ -7,7 +7,7 @@ on:
 
 jobs:
   backup:
-    runs-on: ubuntu-latest  # nicht ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v3
