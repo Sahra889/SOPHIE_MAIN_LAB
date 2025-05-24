@@ -2,19 +2,18 @@ name: 💾 Weekly Backup
 
 on:
   schedule:
-    - cron: '0 2 * * 1'  # Jeden Montag um 02:00 Uhr UTC
+    - cron: '0 2 * * 1'
   workflow_dispatch:
 
 jobs:
   backup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # nicht ubuntu-24.04
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v3
 
       - name: 📦 Upload Backup Artifact
         uses: actions/upload-artifact@v2
-
         with:
           name: SOPHIE_backup
           path: |
