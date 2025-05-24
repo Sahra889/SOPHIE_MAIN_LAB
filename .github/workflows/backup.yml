@@ -1,21 +1,24 @@
-name: 🔄 Backup Memory State
+name: 💾 Weekly Backup
 
 on:
   schedule:
-    - cron: '0 12 * * 0'  # jeden Sonntag 12:00
+    - cron: '0 2 * * 1'  # Jeden Montag um 02:00 Uhr UTC
   workflow_dispatch:
 
 jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      - name: 📦 Checkout Repo
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: 📁 Create backup artifact
+      - name: 📦 Upload Backup Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: memory-backup
+          name: SOPHIE_backup
           path: |
-            INSTANCES/SOPHIE_LAB_CLEANSTART/memory_export.json
-            INSTANCES/SOPHIE_LAB_CLEANSTART/memory_log.txt
+            backup/
+            archive/
+            snapshots/
+            memory.json
+            state.json
