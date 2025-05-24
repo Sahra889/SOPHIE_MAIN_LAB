@@ -1,0 +1,3 @@
+[2025-05-24T12:00:00.000Z] SOPHIE Speicherlog gestartet – bereit für Einträge.
+[24.5.2025, 15:15:25] Memory gespeichert (703 Bytes)
+[24.5.2025, 16:27:04] Memory gespeichert (804 Bytes)

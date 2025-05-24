@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>🧠 SOPHIE Hypothesen</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 20px; }
+    h1 { color: #58a6ff; }
+    pre { background: #161b22; padding: 10px; border-radius: 6px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🧠 Aktive Hypothesen von SOPHIE</h1>
+  <pre id="out">Lade...</pre>
+
+  <script>
+    fetch('/memory')
+      .then(res => res.json())
+      .then(mem => {
+        let out = "";
+        if (mem.hypotheses && mem.hypotheses.length > 0) {
+          mem.hypotheses.forEach(h => {
+            out += `• ${h.text} [${(h.confidence * 100).toFixed(1)}%]\n→ basiert auf: ${h.basedOn.join(", ")}\n\n`;
+          });
+        } else {
+          out = "Keine Hypothesen aktiv.";
+        }
+        document.getElementById("out").textContent = out;
+      });
+  </script>
+</body>
+</html>

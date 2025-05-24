@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>SOPHIE Snapshots</title>
+    <style>
+        body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 20px; }
+        h1 { color: #58a6ff; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin: 10px 0; padding: 10px; background: #161b22; border-radius: 4px; }
+        a { color: #8be9fd; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>SOPHIE Snapshots</h1>
+    <ul id="snapshotList">
+        <li>Lade Snapshots...</li>
+    </ul>
+
+    <script>
+        fetch('/list-snapshots')
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('snapshotList');
+                list.innerHTML = '';
+                data.forEach(file => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="/snapshots/${file}" download>${file}</a>`;
+                    list.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>

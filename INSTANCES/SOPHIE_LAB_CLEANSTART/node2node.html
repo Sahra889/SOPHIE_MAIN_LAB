@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Node2Node Snapshot Vergleich</title>
+  <style>
+    body { font-family: sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px; }
+    textarea { width: 100%; height: 120px; margin: 10px 0; background: #161b22; color: #eee; padding: 8px; border-radius: 4px; }
+    .container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .node { background: #1f1f1f; padding: 10px; border-radius: 4px; white-space: pre-wrap; font-family: monospace; overflow: auto; max-height: 300px; }
+    .diff { background: #2f1f1f; color: #ff8; padding: 8px; border-radius: 4px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Node2Node Snapshot-Vergleich</h1>
+  <textarea id="snap1" placeholder="Snapshot 1 JSON..."></textarea>
+  <textarea id="snap2" placeholder="Snapshot 2 JSON..."></textarea>
+  <button onclick="compare()">Vergleichen</button>
+  <div class="container">
+    <div>
+      <h3>🔵 Snapshot 1</h3>
+      <div class="node" id="view1"></div>
+    </div>
+    <div>
+      <h3>🟢 Snapshot 2</h3>
+      <div class="node" id="view2"></div>
+    </div>
+  </div>
+  <div class="diff" id="diffOut">Vergleichsergebnis erscheint hier...</div>
+
+<script>
+function compare() {
+  try {
+    const s1 = JSON.parse(document.getElementById('snap1').value);
+    const s2 = JSON.parse(document.getElementById('snap2').value);
+    const v1 = JSON.stringify(s1, null, 2);
+    const v2 = JSON.stringify(s2, null, 2);
+    document.getElementById("view1").textContent = v1;
+    document.getElementById("view2").textContent = v2;
+
+    let output = "🔁 Unterschiede:\n";
+    let found = false;
+    for (let key in s1) {
+      if (JSON.stringify(s1[key]) !== JSON.stringify(s2[key])) {
+        output += `🟡 ${key} ist unterschiedlich\n`;
+        found = true;
+      }
+    }
+    if (!found) output = "✅ Keine Unterschiede gefunden.";
+    document.getElementById("diffOut").textContent = output;
+  } catch (e) {
+    document.getElementById("diffOut").textContent = "❌ Fehler beim Parsen.";
+  }
+}
+</script>
+</body>
+</html>

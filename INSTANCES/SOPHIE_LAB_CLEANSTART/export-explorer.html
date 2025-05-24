@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>📁 Export Explorer</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 40px; }
+    h1 { color: #f1fa8c; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin: 6px 0; }
+    a { color: #ffb86c; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    pre { background: #1e2228; padding: 10px; border-radius: 6px; overflow-x: auto; max-height: 400px; }
+    #preview { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>📁 Export Explorer</h1>
+  <ul id="exportList"><li>Lade Exporte...</li></ul>
+
+  <div id="preview">
+    <h3>📄 Vorschau</h3>
+    <pre id="exportContent">Noch keine Datei ausgewählt.</pre>
+  </div>
+
+  <script>
+    fetch('/exports')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("exportList");
+        list.innerHTML = "";
+        if (!data.exports || data.exports.length === 0) {
+          list.innerHTML = "<li>Keine Exportdateien gefunden.</li>";
+          return;
+        }
+        data.exports.forEach(file => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = file;
+          a.onclick = () => {
+            fetch("backup/" + file)
+              .then(res => res.text())
+              .then(text => {
+                document.getElementById("exportContent").textContent = text;
+              });
+          };
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      })
+      .catch(() => {
+        document.getElementById("exportList").innerHTML = "<li>Fehler beim Laden der Liste.</li>";
+      });
+  </script>
+</body>
+</html>

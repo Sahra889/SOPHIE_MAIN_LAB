@@ -1,0 +1,39 @@
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Backup / Snapshots
+backup/
+snapshots/
+archive/
+TEMP_UPDATE/
+
+# System / OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python (optional falls Tools genutzt werden)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Visual Tools / Cache
+*.log
+.vscode/
+.idea/
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# Figma Export Cache (falls vorhanden)
+*.figma-backup
+
+# Local Dev Config
+.env
+*.local
+*.secret
+.gitattributes

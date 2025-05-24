@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>📂 Memory Export Übersicht</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 40px; }
+    h1 { color: #ffcc66; }
+    ul { list-style: none; padding-left: 0; margin-top: 20px; }
+    li { margin: 8px 0; }
+    .err { color: #f55; }
+  </style>
+</head>
+<body>
+  <h1>📂 Memory Export Übersicht</h1>
+  <ul id="exportList"><li>Lade...</li></ul>
+
+  <script>
+    fetch('/exports')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('exportList');
+        list.innerHTML = '';
+        if (!data.exports || data.exports.length === 0) {
+          list.innerHTML = '<li>Keine Exporte gefunden.</li>';
+          return;
+        }
+        data.exports.forEach(file => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = 'backup/' + file;
+          a.textContent = file;
+          a.style.color = '#8be9fd';
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      })
+      .catch(() => {
+        document.getElementById('exportList').innerHTML = '<li class="err">Fehler beim Laden der Exporte.</li>';
+      });
+  </script>
+</body>
+</html>

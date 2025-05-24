@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>🧠 SOPHIE Reflexionen</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 20px; }
+    h1 { color: #58a6ff; }
+    .box { background: #161b22; padding: 10px; border-radius: 6px; margin-bottom: 12px; }
+    .low { color: #ff9; }
+    .fail { color: #f66; }
+    .ok { color: #9f9; }
+  </style>
+</head>
+<body>
+  <h1>🧠 SOPHIE Hypothesenreflexion</h1>
+  <div id="refArea">Lade...</div>
+
+  <script>
+    fetch('/memory')
+      .then(res => res.json())
+      .then(mem => {
+        const out = document.getElementById("refArea");
+        out.innerHTML = '';
+        (mem.hypotheses || []).forEach(h => {
+          const div = document.createElement("div");
+          div.className = "box";
+          const cls = h.confirmed ? "ok" : (h.reflected ? "fail" : "low");
+          div.innerHTML = `
+            <strong class="${cls}">🧠 ${h.text}</strong><br>
+            Vertrauen: ${(h.confidence * 100).toFixed(1)}%<br>
+            ➤ Trigger: ${h.triggered}<br>
+            ➤ Bestätigt: ${h.confirmed}<br>
+            ➤ Reflektiert: ${h.reflected}
+          `;
+          out.appendChild(div);
+        });
+      });
+  </script>
+</body>
+</html>

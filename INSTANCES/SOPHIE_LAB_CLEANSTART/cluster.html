@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>🧬 Snapshot Clustervergleich</title>
+  <style>
+    body { background: #0d1117; color: #eee; font-family: sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 120px; margin: 10px 0; background: #161b22; color: #eee; padding: 8px; border-radius: 4px; }
+    pre { background: #1f1f1f; padding: 10px; border-radius: 6px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🧬 Semantischer Snapshotvergleich</h1>
+  <textarea id="s1" placeholder="Snapshot 1..."></textarea>
+  <textarea id="s2" placeholder="Snapshot 2..."></textarea>
+  <button onclick="analyze()">Cluster-Vergleich starten</button>
+  <pre id="out">Ergebnisse erscheinen hier...</pre>
+
+  <script>
+    function analyze() {
+      const a = JSON.parse(document.getElementById("s1").value || "{}");
+      const b = JSON.parse(document.getElementById("s2").value || "{}");
+      const output = [];
+
+      const keys = new Set([...Object.keys(a.wordFrequency || {}), ...Object.keys(b.wordFrequency || {})]);
+      keys.forEach(k => {
+        const v1 = a.wordFrequency?.[k] || 0;
+        const v2 = b.wordFrequency?.[k] || 0;
+        if (v1 !== v2) {
+          output.push(`🔍 ${k}: ${v1} → ${v2}`);
+        }
+      });
+
+      document.getElementById("out").textContent = output.join("\n") || "✅ Keine Unterschiede.";
+    }
+  </script>
+</body>
+</html>

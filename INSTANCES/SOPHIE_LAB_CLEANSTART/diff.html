@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Snapshot Diff Viewer</title>
+  <style>
+    body { font-family: monospace; background: #0d1117; color: #ccc; padding: 20px; }
+    textarea { width: 48%; height: 300px; background: #1c1c1c; color: #e6edf3; }
+    .container { display: flex; gap: 4%; }
+    pre { background: #1f1f1f; padding: 10px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>🧬 Snapshot-Diff</h1>
+  <div class="container">
+    <textarea id="left" placeholder="Snapshot 1..."></textarea>
+    <textarea id="right" placeholder="Snapshot 2..."></textarea>
+  </div>
+  <button onclick="compare()">Vergleichen</button>
+  <pre id="output"></pre>
+
+  <script>
+    function compare() {
+      const left = JSON.parse(document.getElementById('left').value || '{}');
+      const right = JSON.parse(document.getElementById('right').value || '{}');
+      let out = '';
+      for (let key in left) {
+        if (JSON.stringify(left[key]) !== JSON.stringify(right[key])) {
+          out += `🟡 ${key}: Unterschied erkannt\n`;
+        }
+      }
+      document.getElementById('output').textContent = out || '✅ Keine Unterschiede.';
+    }
+  </script>
+</body>
+</html>

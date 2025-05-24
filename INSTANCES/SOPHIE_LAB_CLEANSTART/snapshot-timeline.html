@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Snapshot Timeline</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 20px; }
+    h1 { color: #58a6ff; }
+    .timeline { border-left: 3px solid #58a6ff; margin-left: 20px; padding-left: 20px; }
+    .entry { margin: 10px 0; padding-left: 10px; }
+    .entry span { color: #8be9fd; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>🧬 Snapshot History Timeline</h1>
+  <div class="timeline" id="timeline">Lade Snapshots...</div>
+
+  <script>
+    fetch('/list-snapshots')
+      .then(res => res.json())
+      .then(data => {
+        const timeline = document.getElementById("timeline");
+        timeline.innerHTML = '';
+        data.sort().reverse().forEach(file => {
+          const entry = document.createElement("div");
+          entry.className = "entry";
+          entry.innerHTML = `<strong>${file}</strong><br><span>${new Date(file.replace(/[^\dT]/g,'').replace(/T/, 'T')).toLocaleString()}</span>`;
+          timeline.appendChild(entry);
+        });
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>SOPHIE.exe</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="sophie_kern.js"></script>
+</head>
+<body onload="initSophie()">
+    <div class="window">
+        <div class="title-bar">
+            <span>SOPHIE.exe</span>
+            <span class="clock" id="clock">--:--</span>
+        </div>
+        <div class="content">
+            <h1>Willkommen bei SOPHIE.exe</h1>
+            <div class="avatar-section">
+                <img src="avatar.png" alt="SOPHIE" class="avatar" onerror="this.style.display='none'">
+                <div class="status-block">
+                    <p><strong>Modus:</strong> <span id="mood">neutral</span></p>
+                    <p><strong>Dialogmodus:</strong> <span id="dialogMode">neutral</span></p>
+                    <p><strong>SOPHIE ist gestartet um:</strong><br><span id="startTime">--</span></p>
+                    <p><strong>Zustand:</strong> <span id="state">--</span></p>
+                </div>
+            </div>
+            <div id="output" class="thought-log"></div>
+            <div class="voice-control">
+                <button onclick="startListening()">🎙️ Zuhören</button>
+                <span id="heardText">...</span>
+            </div>
+            <pre id="memoryPreview"></pre>
+            <div class="chatbox">
+                <input type="text" id="chatInput" placeholder="Nachricht an SOPHIE..." onkeydown="if(event.key==='Enter') sendChat()">
+                <button onclick="sendChat()">Senden</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

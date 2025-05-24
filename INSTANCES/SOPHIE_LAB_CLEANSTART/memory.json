@@ -1,0 +1,44 @@
+{
+  "heard": [
+    {
+      "time": "2025-05-24T13:14:44.112Z",
+      "text": "jhftj",
+      "source": "text"
+    },
+    {
+      "time": "2025-05-24T13:14:46.288Z",
+      "text": "iiolu",
+      "source": "text"
+    },
+    {
+      "time": "2025-05-24T13:14:47.672Z",
+      "text": "gjgzikg",
+      "source": "text"
+    },
+    {
+      "time": "2025-05-24T13:14:49.640Z",
+      "text": "cfhjjh+#",
+      "source": "text"
+    },
+    {
+      "time": "2025-05-24T13:15:25.001Z",
+      "text": "/save",
+      "source": "text"
+    },
+    {
+      "time": "2025-05-24T14:27:04.503Z",
+      "text": "/save",
+      "source": "text"
+    }
+  ],
+  "lastHeard": "/save",
+  "responsesGiven": 6,
+  "wordFrequency": {
+    "jhftj": 1,
+    "iiolu": 1,
+    "gjgzikg": 1,
+    "cfhjjh": 1,
+    "save": 2
+  },
+  "hypotheses": []
+}

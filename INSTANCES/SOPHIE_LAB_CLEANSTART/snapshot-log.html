@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>📂 Snapshot Übersicht</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 40px; }
+    h1 { color: #ff79c6; }
+    ul { list-style: none; padding-left: 0; margin-top: 20px; }
+    li { margin: 8px 0; }
+    .err { color: #f55; }
+  </style>
+</head>
+<body>
+  <h1>📂 Snapshot Übersicht</h1>
+  <ul id="snapshotList"><li>Lade...</li></ul>
+
+  <script>
+    fetch('/snapshots/list')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('snapshotList');
+        list.innerHTML = '';
+        if (!data.snapshots || data.snapshots.length === 0) {
+          list.innerHTML = '<li>Keine Snapshots gefunden.</li>';
+          return;
+        }
+        data.snapshots.forEach(file => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = 'snapshots/' + file;
+          a.textContent = file;
+          a.style.color = '#8be9fd';
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      })
+      .catch(() => {
+        document.getElementById('snapshotList').innerHTML = '<li class="err">Fehler beim Laden.</li>';
+      });
+  </script>
+</body>
+</html>

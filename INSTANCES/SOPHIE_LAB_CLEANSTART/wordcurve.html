@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>📈 Wortverlauf über Zeit</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 20px; }
+    canvas { background: #161b22; border-radius: 8px; padding: 10px; }
+    input, button { margin: 10px 0; padding: 6px; }
+  </style>
+</head>
+<body>
+  <h1>📈 Wortverlauf: Entwicklung einzelner Begriffe</h1>
+  <input id="wordInput" placeholder="z.B. du" />
+  <button onclick="render()">Visualisieren</button>
+  <canvas id="wordChart" width="800" height="400"></canvas>
+
+  <script>
+    async function render() {
+      const word = document.getElementById("wordInput").value.toLowerCase();
+      const res = await fetch('/memory');
+      const mem = await res.json();
+
+      if (!mem.heard || mem.heard.length === 0) return;
+
+      const history = {};
+      mem.heard.forEach(entry => {
+        const date = new Date(entry.time).toLocaleDateString();
+        if (!history[date]) history[date] = 0;
+        if (entry.text.toLowerCase().includes(word)) {
+          history[date]++;
+        }
+      });
+
+      const labels = Object.keys(history);
+      const values = labels.map(date => history[date]);
+
+      const ctx = document.getElementById('wordChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: `Verlauf für: "${word}"`,
+            data: values,
+            fill: false,
+            borderColor: '#58a6ff',
+            tension: 0.1
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

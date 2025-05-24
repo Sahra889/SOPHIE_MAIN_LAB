@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>📁 Snapshot Explorer</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 40px; }
+    h1 { color: #8be9fd; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin: 6px 0; }
+    a { color: #50fa7b; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    pre { background: #1e2228; padding: 10px; border-radius: 6px; overflow-x: auto; max-height: 400px; }
+    #preview { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>📁 Snapshot Explorer</h1>
+  <ul id="snapshotList"><li>Lade Snapshots...</li></ul>
+
+  <div id="preview">
+    <h3>📄 Vorschau</h3>
+    <pre id="snapshotContent">Noch keine Datei ausgewählt.</pre>
+  </div>
+
+  <script>
+    fetch('/snapshots/list')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("snapshotList");
+        list.innerHTML = "";
+        if (!data.snapshots || data.snapshots.length === 0) {
+          list.innerHTML = "<li>Keine Snapshots gefunden.</li>";
+          return;
+        }
+        data.snapshots.forEach(file => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = file;
+          a.onclick = () => {
+            fetch("snapshots/" + file)
+              .then(res => res.text())
+              .then(text => {
+                document.getElementById("snapshotContent").textContent = text;
+              });
+          };
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      })
+      .catch(() => {
+        document.getElementById("snapshotList").innerHTML = "<li>Fehler beim Laden der Liste.</li>";
+      });
+  </script>
+</body>
+</html>

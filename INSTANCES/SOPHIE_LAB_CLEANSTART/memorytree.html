@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>📁 SOPHIE Memory Tree</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap"></script>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; padding: 20px; }
+    canvas { background: #161b22; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>📁 SOPHIE Memory-Baum</h1>
+  <canvas id="treeMap" width="900" height="500"></canvas>
+
+  <script>
+    async function load() {
+      const res = await fetch('/memory');
+      const mem = await res.json();
+      const entries = Object.entries(mem.wordFrequency || {}).map(([key, val]) => ({
+        label: key,
+        value: val
+      }));
+
+      const ctx = document.getElementById("treeMap").getContext("2d");
+      new Chart(ctx, {
+        type: "treemap",
+        data: {
+          datasets: [{
+            label: "Häufigkeit",
+            tree: entries,
+            key: "value",
+            groups: ["label"],
+            backgroundColor: "rgba(88,166,255,0.5)"
+          }]
+        }
+      });
+    }
+    load();
+  </script>
+</body>
+</html>
