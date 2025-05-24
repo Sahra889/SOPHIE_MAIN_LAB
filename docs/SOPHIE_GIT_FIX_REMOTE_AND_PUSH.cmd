@@ -11,7 +11,7 @@ echo 🔄 Entferne ggf. alte origin...
 git remote remove origin
 
 echo ➕ Setze neue origin:
-git remote add origin https://github.com/PatrickAI/SOPHIE_MAIN_LAB.git
+git remote add origin https://github.com/Sahra889/SOPHIE_MAIN_LAB.git
 
 echo.
 echo ✅ Stelle sicher, dass main existiert...
