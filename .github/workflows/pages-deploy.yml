@@ -27,7 +27,7 @@ jobs:
       - name: 📦 Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: docs
+          path: DOCS
 
       - name: 🚀 Deploy to GitHub Pages
         id: deployment
